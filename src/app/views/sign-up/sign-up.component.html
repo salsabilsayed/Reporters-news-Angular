@@ -1,0 +1,135 @@
+<section>
+    <div class="container">
+        <form [formGroup]='signupForm' (ngSubmit)='signUp(signupForm.value); signupForm.reset()'>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              id="name"
+              name='name'
+              formControlName='name'
+              >
+            </div>
+
+            <!-- error messages for name -->
+
+            <div *ngIf="myValues['name']?.touched && myValues['name']?.invalid">
+                <div *ngIf="myValues['name'].errors?.['required']" class="alert alert-danger">
+                    Name is required
+                </div>
+                <div *ngIf="myValues['name'].errors?.['minlength']" class="alert alert-danger">
+                    Name min length is {{myValues['name'].errors?.['minlength'].requiredLength}}
+                </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="age" class="form-label">Age</label>
+              <input 
+              type="number" 
+              class="form-control" 
+              id="age"
+              name='age'
+              formControlName='age'
+              (focus)='removeAgeMsg()'
+              >
+            </div>
+            <!-- backend age message -->
+            <div *ngIf='invalidAge' class="alert alert-danger">
+                Age must be a positive number
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                type="email" 
+                class="form-control" 
+                id="email"
+                name='email'
+                formControlName='email'
+                (focus)='removeEmailMsg()'
+                >
+            </div>
+
+            <!-- error messages for email -->
+
+            <div *ngIf="myValues['email']?.touched && myValues['email']?.invalid">
+                <div *ngIf="myValues['email'].errors?.['required']" class="alert alert-danger">
+                    Email is required
+                </div>
+                <div *ngIf="myValues['email'].errors?.['email']" class="alert alert-danger">
+                    Please enter a valid email!
+                </div>
+            </div>
+
+            <!-- backend email error -->
+            <div *ngIf="invalidEmail" class="alert alert-danger">
+                Email already exist, please enter another one
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input 
+                type="password" 
+                class="form-control" 
+                id="password"
+                name='password'
+                formControlName='password'
+                >
+            </div>
+
+            <!-- error messages for password -->
+
+            <div *ngIf="myValues['password']?.touched && myValues['password']?.invalid">
+                <div *ngIf="myValues['password'].errors?.['required']" class="alert alert-danger">
+                    Password is required
+                </div>
+                <div *ngIf="myValues['password'].errors?.['minlength']" class="alert alert-danger">
+                    Password min length is {{myValues['password'].errors?.['minlength'].requiredLength}}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Mobile Number</label>
+                <input 
+                type="text" 
+                class="form-control" 
+                id="phone"
+                name='phone'
+                formControlName='phone'
+                >
+            </div>
+
+            <!-- error messages for phone -->
+
+            <div *ngIf="myValues['phone']?.touched && myValues['phone']?.invalid">
+                <div *ngIf="myValues['phone'].errors?.['required']" class="alert alert-danger">
+                    Mobile number is required
+                </div>
+            </div>
+            <!-- backend phone error -->
+            <div *ngIf="invalidPhone" class="alert alert-danger">
+                Please enter a valid mobile number!
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload image</label>
+                <input 
+                type="file" 
+                class="form-control" 
+                id="image"
+                name='image'
+                formControlName='image'
+                >
+            </div>
+            
+            <button 
+            type="submit" 
+            class="btn btn-primary"
+            [disabled]='signupForm.invalid'
+            >
+                Register
+            </button>
+          </form>
+    </div>
+</section>

@@ -1,0 +1,65 @@
+<section>
+    <div class="container">
+        <form [formGroup]='loginForm' (ngSubmit)='login(loginForm.value); loginForm.reset()'>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                type="email" 
+                class="form-control" 
+                id="email"
+                name='email'
+                formControlName='email'
+                (focus)='removeErrorMsg()'
+                >
+            </div>
+
+            <!-- error messages for email -->
+
+            <div *ngIf="myValues['email']?.touched && myValues['email']?.invalid">
+                <div *ngIf="myValues['email'].errors?.['required']" class="alert alert-danger">
+                    Email is required
+                </div>
+                <div *ngIf="myValues['email'].errors?.['email']" class="alert alert-danger">
+                    Please enter a valid email!
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input 
+                type="password" 
+                class="form-control" 
+                id="password"
+                name='password'
+                formControlName='password'
+                (focus)='removeErrorMsg()'
+                >
+            </div>
+
+            <!-- error messages for password -->
+
+            <div *ngIf="myValues['password']?.touched && myValues['password']?.invalid">
+                <div *ngIf="myValues['password'].errors?.['required']" class="alert alert-danger">
+                    Password is required
+                </div>
+                <div *ngIf="myValues['password'].errors?.['minlength']" class="alert alert-danger">
+                    Password min length is {{myValues['password'].errors?.['minlength'].requiredLength}}
+                </div>
+            </div>
+            <!-- invalidlogin -->
+            <div *ngIf='invalidLogin' class="alert alert-danger">
+                Incorrect email or password,try again!
+            </div>
+            
+            <button 
+            type="submit" 
+            class="btn btn-primary"
+            [disabled]='loginForm.invalid'
+            >
+                Login
+            </button>
+          </form>
+    </div>
+</section>
+
